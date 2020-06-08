@@ -55,7 +55,7 @@ variable "name_prefix" {
 }
 
 variable "availability_zones" {
-  default     = "us-east-2a,us-east-2b,us-east-2c"
+  default     = ""
   description = "Availability zones for launching the instances"
 }
 
