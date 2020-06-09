@@ -16,7 +16,7 @@ log_level           = "INFO"
 ui                  = true
 
 # AWS cloud join
-retry_join          = ["provider=aws tag_key=Environment-Name tag_value=${environment_name}-consul"]
+retry_join          = ["provider=aws tag_key=Environment-Name tag_value=${environment_name}"]
 
 # Max connections for the HTTP API
 limits {

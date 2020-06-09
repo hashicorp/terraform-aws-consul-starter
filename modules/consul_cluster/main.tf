@@ -106,7 +106,7 @@ locals {
   }
   install_consul_tpl = {
     ami                    = var.ami_id
-    environment_name       = random_id.environment_name.hex
+    environment_name       = "espd-test-hello"
     datacenter             = data.aws_region.current.name
     bootstrap_expect       = var.redundancy_zones ? length(split(",", var.availability_zones)) : var.consul_servers
     total_nodes            = var.consul_servers
