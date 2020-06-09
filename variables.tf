@@ -21,11 +21,6 @@ variable "ami_id" {
   description = "AMI ID to target. Overrides filter."
 }
 
-variable "env_prefix" {
-  default     = "test"
-  description = "environment prefix"
-}
-
 variable "name_prefix" {
   default     = "hashicorp"
   description = "prefix used in resource names"

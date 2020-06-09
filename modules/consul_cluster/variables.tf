@@ -22,17 +22,12 @@ variable "ami_id" {
 }
 
 variable "name_prefix" {
-  default     = "hashicorp"
   description = "prefix used in resource names"
 }
 
 variable "availability_zones" {
   default     = "us-east-2a,us-east-2b,us-east-2c"
   description = "Availability zones for launching the instances"
-}
-
-variable "env_prefix" {
-  description = "environment prefix"
 }
 
 variable "public_ip" {

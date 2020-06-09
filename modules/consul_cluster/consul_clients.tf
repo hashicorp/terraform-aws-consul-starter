@@ -14,7 +14,7 @@ resource "aws_autoscaling_group" "consul_clients" {
   tags = [
     {
       key                 = "Name"
-      value               = "${var.env_prefix}-consul"
+      value               = "${var.name_prefix}-consul"
       propagate_at_launch = true
     },
     {
@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "consul_clients" {
     },
     {
       key                 = "Environment-Name"
-      value               = "${var.env_prefix}-consul"
+      value               = "${var.name_prefix}-consul"
       propagate_at_launch = true
     },
     {
