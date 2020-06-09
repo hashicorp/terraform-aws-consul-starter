@@ -14,7 +14,8 @@ resource "aws_autoscaling_group" "consul_clients" {
   tags = [
     {
       key                 = "Name"
-      value               = "${random_id.environment_name.hex}-consul-${var.consul_cluster_version}"
+#      value               = "${random_id.environment_name.hex}-consul-${var.consul_cluster_version}"
+      value               = "espd-test-hello"
       propagate_at_launch = true
     },
     {
@@ -24,7 +25,8 @@ resource "aws_autoscaling_group" "consul_clients" {
     },
     {
       key                 = "Environment-Name"
-      value               = "${random_id.environment_name.hex}-consul"
+#      value               = "${random_id.environment_name.hex}-consul"
+      value               = "espd-test-hello"
       propagate_at_launch = true
     },
     {

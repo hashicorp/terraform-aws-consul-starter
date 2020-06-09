@@ -36,18 +36,18 @@ variable "ami_os_release" {
   description = "AMI OS version to target in the filter"
 }
 
-variable "ami_owner" {
-  description = "AMI owner to target in the filter"
-}
+#variable "ami_owner" {
+#  description = "AMI owner to target in the filter"
+#}
 
 variable "ami_id" {
   default     = ""
   description = "AMI ID to target. Overrides filter."
 }
 
-variable "region" {
-  description = "AWS Region to target for deployment"
-}
+#variable "region" {
+#  description = "AWS Region to target for deployment"
+#}
 
 variable "name_prefix" {
   default     = "hashicorp"
@@ -85,9 +85,9 @@ variable "consul_clients" {
   description = "number of Consul instances"
 }
 
-variable "subnets" {
-  description = "list of subnets to launch Consul within"
-}
+#variable "subnets" {
+#  description = "list of subnets to launch Consul within"
+#}
 
 variable "vpc_id" {
   description = "VPC ID"
