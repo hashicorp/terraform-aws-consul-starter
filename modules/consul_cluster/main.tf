@@ -37,8 +37,7 @@ resource "aws_autoscaling_group" "consul_servers" {
   tags = [
     {
       key                 = "Name"
-#      value               = "${random_id.environment_name.hex}-consul-${var.consul_cluster_version}"
-      value               = "espd-test-hello"
+      value               = "${var.env_prefix}-consul"
       propagate_at_launch = true
     },
     {
@@ -48,8 +47,7 @@ resource "aws_autoscaling_group" "consul_servers" {
     },
     {
       key                 = "Environment-Name"
-#      value               = "${random_id.environment_name.hex}-consul"
-      value               = "espd-test-hello"
+      value               = "${var.env_prefix}-consul"
       propagate_at_launch = true
     },
     {
@@ -106,7 +104,7 @@ locals {
   }
   install_consul_tpl = {
     ami                    = var.ami_id
-    environment_name       = "espd-test-hello"
+    environment_name       = "${var.env_prefix}-consul"
     datacenter             = data.aws_region.current.name
     bootstrap_expect       = var.redundancy_zones ? length(split(",", var.availability_zones)) : var.consul_servers
     total_nodes            = var.consul_servers

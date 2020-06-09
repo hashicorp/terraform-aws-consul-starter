@@ -31,6 +31,10 @@ variable "availability_zones" {
   description = "Availability zones for launching the instances"
 }
 
+variable "env_prefix" {
+  description = "environment prefix"
+}
+
 variable "public_ip" {
   type        = bool
   default     = false
