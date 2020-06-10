@@ -16,41 +16,12 @@ variable "performance_mode" {
   default     = true
 }
 
-variable "ami_prefix" {
-  default     = "is-aws-immutable-consul-"
-  description = "AMI prefix name(From Packer) to target in the filter"
-}
-
-variable "ami_release" {
-  default     = "0.0.1"
-  description = "AMI release version to target in the filter"
-}
-
-variable "ami_os" {
-  default     = "ubuntu"
-  description = "AMI operating system to target in the filter"
-}
-
-variable "ami_os_release" {
-  default     = "18.04"
-  description = "AMI OS version to target in the filter"
-}
-
-variable "ami_owner" {
-  description = "AMI owner to target in the filter"
-}
-
 variable "ami_id" {
   default     = ""
   description = "AMI ID to target. Overrides filter."
 }
 
-variable "region" {
-  description = "AWS Region to target for deployment"
-}
-
 variable "name_prefix" {
-  default     = "hashicorp"
   description = "prefix used in resource names"
 }
 
@@ -83,10 +54,6 @@ variable "consul_servers" {
 variable "consul_clients" {
   default     = "3"
   description = "number of Consul client instances"
-}
-
-variable "subnets" {
-  description = "list of subnets to launch Consul within"
 }
 
 variable "vpc_id" {

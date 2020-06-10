@@ -2,8 +2,7 @@
     "variables": {
         "aws_access_key_id": "{{ env `AWS_ACCESS_KEY_ID` }}",
         "aws_secret_access_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
-        "aws_region": "{{ env `AWS_REGION` }}",
-        "subnet_id": "subnet-3084fa58"
+        "aws_region": "{{ env `AWS_REGION` }}"
     },
     "builders": [
         {      
@@ -13,7 +12,7 @@
             "ami_name": "consul-on-aws-immutable",
             "instance_type": "m5.large",
             "ssh_username": "ubuntu",
-            "subnet_id": "{{user `subnet_id`}}",
+            "ami_regions": ["us-east-1"],
             "source_ami_filter": {
                 "filters": {
                     "virtualization-type": "hvm",
@@ -29,7 +28,7 @@
       "provisioners": [
         {
           "type": "file",
-          "source": "binaries/consul_1.7.1_linux_amd64.zip",
+          "source": "binaries/consul_1.7.3_linux_amd64.zip",
           "destination": "/tmp/consul.zip"
         },
         {

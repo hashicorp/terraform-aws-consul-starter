@@ -16,7 +16,7 @@ ui                  = true
 encrypt             = "${gossip_key}"
 
 # AWS cloud join
-retry_join          = ["provider=aws tag_key=Environment-Name tag_value=${environment_name}-consul"]
+retry_join          = ["provider=aws tag_key=Environment-Name tag_value=${environment_name}"]
 EOF
 
 chown -R consul:consul /etc/consul.d
