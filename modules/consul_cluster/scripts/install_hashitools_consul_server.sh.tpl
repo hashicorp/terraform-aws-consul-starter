@@ -41,18 +41,10 @@ encrypt = "${gossip_key}"
 EOF
 
 cat << EOF > /etc/consul.d/autopilot.hcl
-autopilot # {%{ if redundancy_zones }
-#   redundancy_zone_tag = "az"%{ endif }
+autopilot {
   upgrade_version_tag = "consul_cluster_version"
-# }
-# EOF
-#  %{ if redundancy_zones }
-# cat << EOF > /etc/consul.d/redundancy_zone.hcl
-# node_meta = {
-#     az = "$${AVAILABILITY_ZONE}"
-# }
-# EOF
-# %{ endif }
+}
+EOF
 
 cat << EOF > /etc/consul.d/cluster_version.hcl
 node_meta = {
