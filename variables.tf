@@ -4,12 +4,6 @@ variable "bootstrap" {
   description = "Initial Bootstrap configurations"
 }
 
-variable "redundancy_zones" {
-  type        = bool
-  default     = false
-  description = "Leverage Redundancy Zones within Consul for additional non-voting nodes."
-}
-
 variable "performance_mode" {
   type        = bool
   description = "High IOPS provisioning and production raft performance factors."

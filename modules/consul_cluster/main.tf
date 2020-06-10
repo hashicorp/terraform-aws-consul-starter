@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "consul_servers" {
   tags = [
     {
       key                 = "Name"
-      value               = "${var.name_prefix}-consul"
+      value               = "${var.name_prefix}-consul-server"
       propagate_at_launch = true
     },
     {
@@ -106,7 +106,7 @@ locals {
     ami                    = var.ami_id
     environment_name       = "${var.name_prefix}-consul"
     datacenter             = data.aws_region.current.name
-    bootstrap_expect       = var.redundancy_zones ? length(split(",", var.availability_zones)) : var.consul_servers
+    bootstrap_expect       = var.consul_servers
     total_nodes            = var.consul_servers
     gossip_key             = random_id.consul_gossip_encryption_key.b64_std
     master_token           = random_uuid.consul_master_token.result
@@ -114,7 +114,6 @@ locals {
     snapshot_token         = random_uuid.consul_snapshot_token.result
     consul_cluster_version = var.consul_cluster_version
     asg_name               = "${random_id.environment_name.hex}-consul-${var.consul_cluster_version}"
-    redundancy_zones       = var.redundancy_zones
     bootstrap              = var.bootstrap
     enable_connect         = var.enable_connect
     performance_mode       = var.performance_mode
