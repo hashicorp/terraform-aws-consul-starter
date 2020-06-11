@@ -46,29 +46,4 @@ data "aws_iam_policy_document" "cluster_discovery" {
     ]
     resources = ["*"]
   }
-
-  # allow the named S3 bucket to be accessed by role with this policy to write and delete
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-      "s3:DeleteObject",
-    ]
-    resources = [
-      "arn:aws:s3:::${random_id.environment_name.hex}-consul-data/*" # TODO: transition to var
-    ]
-  }
-
-  # allow role with this policy to list the contents of the named bucket and its versions
-  statement {
-    effect = "Allow"
-    actions = [
-      "s3:ListBucketVersions",
-      "s3:ListBucket",
-    ]
-    resources = [
-      "arn:aws:s3:::${random_id.environment_name.hex}-consul-data" # TODO: transition to var
-    ]
-  }
-
 }

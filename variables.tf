@@ -20,11 +20,6 @@ variable "name_prefix" {
   description = "prefix used in resource names"
 }
 
-variable "availability_zones" {
-  default     = ""
-  description = "Availability zones for launching the instances"
-}
-
 variable "public_ip" {
   type        = bool
   default     = false
@@ -72,24 +67,6 @@ variable "enable_connect" {
   type        = bool
   description = "Whether Consul Connect should be enabled on the cluster"
   default     = false
-}
-
-variable "enable_snapshots" {
-  type        = bool
-  description = "Whether the Consul Snapshot agent should be enabled on the cluster"
-  default     = true
-}
-
-variable "snapshot_interval" {
-  type        = string
-  description = "The consul snapshot agent archival interval"
-  default     = "30m"
-}
-
-variable "snapshot_retention" {
-  type        = number
-  description = "The consul snapshot agent archival interval"
-  default     = 336
 }
 
 variable "consul_config" {

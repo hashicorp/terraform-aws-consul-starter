@@ -117,9 +117,6 @@ locals {
     bootstrap              = var.bootstrap
     enable_connect         = var.enable_connect
     performance_mode       = var.performance_mode
-    enable_snapshots       = var.enable_snapshots
-    snapshot_interval      = var.snapshot_interval
-    snapshot_retention     = var.snapshot_retention
     consul_config          = var.consul_config
   }
 }

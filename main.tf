@@ -8,14 +8,10 @@ module "consul_cluster" {
   key_name               = var.key_name
   name_prefix            = var.name_prefix
   vpc_id                 = var.vpc_id
-  availability_zones     = var.availability_zones
   public_ip              = var.public_ip
   consul_servers         = var.consul_servers
   consul_clients         = var.consul_clients
   performance_mode       = var.performance_mode
-  enable_snapshots       = var.enable_snapshots
-  snapshot_interval      = var.snapshot_interval
-  snapshot_retention     = var.snapshot_retention
   consul_config          = var.consul_config
   owner                  = var.owner
   ttl                    = var.ttl
