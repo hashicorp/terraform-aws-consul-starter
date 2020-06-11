@@ -89,17 +89,17 @@ if ! consul kv get acl_bootstrap 2>/dev/null; then
     policy = "write"
   }' | consul acl policy create -name consul-agent-server -rules -
 
-  echo '
-  acl = "write"
-  key "consul-snapshot/lock" {
-  policy = "write"
-  }
-  session_prefix "" {
-  policy = "write"
-  }
-  service "consul-snapshot" {
-  policy = "write"
-  }' | consul acl policy create -name snapshot_agent -rules -
+  # echo '
+  # acl = "write"
+  # key "consul-snapshot/lock" {
+  # policy = "write"
+  # }
+  # session_prefix "" {
+  # policy = "write"
+  # }
+  # service "consul-snapshot" {
+  # policy = "write"
+  # }' | consul acl policy create -name snapshot_agent -rules -
 
   echo '
   node_prefix "" {
@@ -120,7 +120,7 @@ if ! consul kv get acl_bootstrap 2>/dev/null; then
   operator = "read"' |  consul acl policy create -name anonymous -rules -
 
   consul acl token create -description "consul agent server token" -policy-name consul-agent-server -secret "${agent_server_token}" 1>/dev/null
-  consul acl token create -description "consul snapshot agent" -policy-name snapshot_agent -secret "${snapshot_token}" 1>/dev/null
+  # consul acl token create -description "consul snapshot agent" -policy-name snapshot_agent -secret "${snapshot_token}" 1>/dev/null
   consul acl token update -id anonymous -policy-name anonymous 1>/dev/null
 else
   echo "Bootstrap already completed"
@@ -130,28 +130,28 @@ EOF
 chmod 700 /tmp/bootstrap_tokens.sh
 
 %{ endif }
-%{ if enable_snapshots }
-cat << EOF > /etc/consul-snapshot.d/consul-snapshot.json
-{
-	"snapshot_agent": {
-		"http_addr": "127.0.0.1:8500",
-		"token": "${snapshot_token}",
-		"datacenter": "${datacenter}",
-		"snapshot": {
-			"interval": "${snapshot_interval}",
-			"retain": ${snapshot_retention},
-			"deregister_after": "8h"
-		},
-		"aws_storage": {
-			"s3_region": "${datacenter}",
-			"s3_bucket": "${environment_name}-consul-data"
-		}
-	}
-}
-EOF
-chown -R consul:consul /etc/consul-snapshot.d/*
-chmod -R 600 /etc/consul-snapshot.d/*
-%{ endif }
+# %{ if enable_snapshots }
+# cat << EOF > /etc/consul-snapshot.d/consul-snapshot.json
+# {
+# 	"snapshot_agent": {
+# 		"http_addr": "127.0.0.1:8500",
+# 		"token": "${snapshot_token}",
+# 		"datacenter": "${datacenter}",
+# 		"snapshot": {
+# 			"interval": "${snapshot_interval}",
+# 			"retain": ${snapshot_retention},
+# 			"deregister_after": "8h"
+# 		},
+# 		"aws_storage": {
+# 			"s3_region": "${datacenter}",
+# 			"s3_bucket": "${environment_name}-consul-data"
+# 		}
+# 	}
+# }
+# EOF
+# chown -R consul:consul /etc/consul-snapshot.d/*
+# chmod -R 600 /etc/consul-snapshot.d/*
+# %{ endif }
 
 chown -R consul:consul /etc/consul.d
 chmod -R 640 /etc/consul.d/*
@@ -209,7 +209,7 @@ done
 %{ if bootstrap }/tmp/bootstrap_tokens.sh%{ endif }
 echo "$INSTANCE_ID determined all nodes to be healthy and ready to go <3"
 
-%{ if enable_snapshots }
-systemctl enable consul-snapshot
-systemctl start consul-snapshot
-%{ endif }
+# %{ if enable_snapshots }
+# systemctl enable consul-snapshot
+# systemctl start consul-snapshot
+# %{ endif }
