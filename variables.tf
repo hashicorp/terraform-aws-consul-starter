@@ -74,24 +74,6 @@ variable "enable_connect" {
   default     = false
 }
 
-variable "enable_snapshots" {
-  type        = bool
-  description = "Whether the Consul Snapshot agent should be enabled on the cluster"
-  default     = true
-}
-
-variable "snapshot_interval" {
-  type        = string
-  description = "The consul snapshot agent archival interval"
-  default     = "30m"
-}
-
-variable "snapshot_retention" {
-  type        = number
-  description = "The consul snapshot agent archival interval"
-  default     = 336
-}
-
 variable "consul_config" {
   description = "HCL Object with additional configuration overrides supplied to the consul servers.  This is converted to JSON before rendering via the template."
   default     = {}
