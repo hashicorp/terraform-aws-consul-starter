@@ -4,12 +4,6 @@ variable "bootstrap" {
   description = "Initial Bootstrap configurations"
 }
 
-variable "redundancy_zones" {
-  type        = bool
-  default     = false
-  description = "Leverage Redundancy Zones within Consul for additional non-voting nodes."
-}
-
 variable "performance_mode" {
   type        = bool
   description = "High IOPS provisioning and production raft performance factors."
@@ -24,11 +18,6 @@ variable "ami_id" {
 variable "name_prefix" {
   default     = "hashicorp"
   description = "prefix used in resource names"
-}
-
-variable "availability_zones" {
-  default     = ""
-  description = "Availability zones for launching the instances"
 }
 
 variable "public_ip" {
@@ -78,24 +67,6 @@ variable "enable_connect" {
   type        = bool
   description = "Whether Consul Connect should be enabled on the cluster"
   default     = false
-}
-
-variable "enable_snapshots" {
-  type        = bool
-  description = "Whether the Consul Snapshot agent should be enabled on the cluster"
-  default     = true
-}
-
-variable "snapshot_interval" {
-  type        = string
-  description = "The consul snapshot agent archival interval"
-  default     = "30m"
-}
-
-variable "snapshot_retention" {
-  type        = number
-  description = "The consul snapshot agent archival interval"
-  default     = 336
 }
 
 variable "consul_config" {
