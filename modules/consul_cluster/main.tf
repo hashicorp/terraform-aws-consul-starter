@@ -105,6 +105,7 @@ locals {
   install_consul_tpl = {
     ami                    = var.ami_id
     environment_name       = "${var.name_prefix}-consul"
+    consul_version         = var.consul_version
     datacenter             = data.aws_region.current.name
     bootstrap_expect       = var.consul_servers
     total_nodes            = var.consul_servers

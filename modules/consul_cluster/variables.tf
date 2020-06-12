@@ -4,6 +4,10 @@ variable "bootstrap" {
   description = "Initial Bootstrap configurations"
 }
 
+variable "consul_version" {
+  description = "Consul version"
+}
+
 variable "performance_mode" {
   type        = bool
   description = "High IOPS provisioning and production raft performance factors."
