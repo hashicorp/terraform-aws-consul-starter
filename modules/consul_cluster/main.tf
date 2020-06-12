@@ -6,6 +6,22 @@ data "aws_vpc" "consul_vpc" {
   id = var.vpc_id
 }
 
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
 # data source for subnet ids in VPC
 data "aws_subnet_ids" "default" {
   vpc_id = data.aws_vpc.consul_vpc.id
@@ -70,7 +86,7 @@ resource "aws_autoscaling_group" "consul_servers" {
 # provides a resource for a new autoscaling group launch configuration
 resource "aws_launch_configuration" "consul_servers" {
   name                        = "${random_id.environment_name.hex}-consul-servers-${var.consul_cluster_version}"
-  image_id                    = var.ami_id
+  image_id                    = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   key_name                    = var.key_name
   security_groups             = [aws_security_group.consul.id]
@@ -103,7 +119,7 @@ locals {
     volume_size = 100
   }
   install_consul_tpl = {
-    ami                    = var.ami_id
+    ami                    = data.aws_ami.ubuntu.id
     environment_name       = "${var.name_prefix}-consul"
     consul_version         = var.consul_version
     datacenter             = data.aws_region.current.name

@@ -1,7 +1,6 @@
 module "consul_cluster" {
   source = "./modules/consul_cluster"
 
-  ami_id                 = var.ami_id
   instance_type          = var.instance_type
   consul_version         = var.consul_version
   consul_cluster_version = var.consul_cluster_version
