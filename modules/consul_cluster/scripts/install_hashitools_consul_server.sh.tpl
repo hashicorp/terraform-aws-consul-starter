@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+# install package
+
+curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+apt-get update
+apt-get install -y consul=1:${consul_version}
+
+echo "Installing jq"
+curl --silent -Lo /bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
+chmod +x /bin/jq
+
+echo "Configuring system time"
+timedatectl set-timezone UTC
+
 echo "Starting deployment from AMI: ${ami}"
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
 AVAILABILITY_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
