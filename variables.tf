@@ -14,11 +14,6 @@ variable "performance_mode" {
   default     = true
 }
 
-variable "ami_id" {
-  default     = ""
-  description = "AMI ID to target. Overrides filter."
-}
-
 variable "name_prefix" {
   default     = "hashicorp"
   description = "prefix used in resource names"
