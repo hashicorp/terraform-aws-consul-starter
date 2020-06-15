@@ -53,7 +53,14 @@ resource "aws_launch_configuration" "consul_clients" {
   instance_type               = var.instance_type
   key_name                    = var.key_name
   security_groups             = [aws_security_group.consul.id]
-  user_data                   = templatefile("${path.module}/scripts/install_hashitools_consul_client.sh.tpl", local.install_consul_tpl)
+  user_data                   = templatefile("${path.module}/scripts/install_hashitools_consul_client.sh.tpl",
+    {
+      ami                    = data.aws_ami.ubuntu.id,
+      environment_name       = "${var.name_prefix}-consul",
+      consul_version         = var.consul_version,
+      datacenter             = data.aws_region.current.name,
+      gossip_key             = random_id.consul_gossip_encryption_key.b64_std,
+    })
   associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
   root_block_device {

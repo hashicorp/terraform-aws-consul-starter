@@ -90,50 +90,33 @@ resource "aws_launch_configuration" "consul_servers" {
   instance_type               = var.instance_type
   key_name                    = var.key_name
   security_groups             = [aws_security_group.consul.id]
-  user_data                   = templatefile("${path.module}/scripts/install_hashitools_consul_server.sh.tpl", local.install_consul_tpl)
+  user_data                   = templatefile("${path.module}/scripts/install_hashitools_consul_server.sh.tpl",
+    {
+      ami                    = data.aws_ami.ubuntu.id,
+      environment_name       = "${var.name_prefix}-consul",
+      consul_version         = var.consul_version,
+      datacenter             = data.aws_region.current.name,
+      bootstrap_expect       = var.consul_servers,
+      total_nodes            = var.consul_servers,
+      gossip_key             = random_id.consul_gossip_encryption_key.b64_std,
+      master_token           = random_uuid.consul_master_token.result,
+      agent_server_token     = random_uuid.consul_agent_server_token.result,
+      snapshot_token         = random_uuid.consul_snapshot_token.result,
+      consul_cluster_version = var.consul_cluster_version,
+      bootstrap              = var.bootstrap,
+      enable_connect         = var.enable_connect,
+      performance_mode       = var.performance_mode,
+      consul_config          = var.consul_config,
+    })
   associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
-  dynamic "root_block_device" {
-    for_each = var.performance_mode ? [local.disk_consul_io1] : [local.disk_consul_gp2]
-    content {
-      volume_type = root_block_device.value.volume_type
-      volume_size = root_block_device.value.volume_size
-      iops        = root_block_device.value.volume_type == "io1" ? root_block_device.value.iops : "0"
-    }
+  root_block_device {
+    volume_type = "io1"
+    volume_size = 50
+    iops        = "2500"
   }
 
   lifecycle {
     create_before_destroy = true
-  }
-}
-
-# sets local values for various vars for sharing
-locals {
-  disk_consul_io1 = {
-    volume_type = "io1"
-    volume_size = 100
-    iops        = "5000"
-  }
-  disk_consul_gp2 = {
-    volume_type = "gp2"
-    volume_size = 100
-  }
-  install_consul_tpl = {
-    ami                    = data.aws_ami.ubuntu.id
-    environment_name       = "${var.name_prefix}-consul"
-    consul_version         = var.consul_version
-    datacenter             = data.aws_region.current.name
-    bootstrap_expect       = var.consul_servers
-    total_nodes            = var.consul_servers
-    gossip_key             = random_id.consul_gossip_encryption_key.b64_std
-    master_token           = random_uuid.consul_master_token.result
-    agent_server_token     = random_uuid.consul_agent_server_token.result
-    snapshot_token         = random_uuid.consul_snapshot_token.result
-    consul_cluster_version = var.consul_cluster_version
-    asg_name               = "${random_id.environment_name.hex}-consul-${var.consul_cluster_version}"
-    bootstrap              = var.bootstrap
-    enable_connect         = var.enable_connect
-    performance_mode       = var.performance_mode
-    consul_config          = var.consul_config
   }
 }
