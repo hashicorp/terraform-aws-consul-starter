@@ -8,12 +8,6 @@ variable "consul_version" {
   description = "Consul version"
 }
 
-variable "performance_mode" {
-  type        = bool
-  description = "High IOPS provisioning and production raft performance factors."
-  default     = true
-}
-
 variable "name_prefix" {
   default     = "hashicorp"
   description = "prefix used in resource names"

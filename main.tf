@@ -11,7 +11,6 @@ module "consul_cluster" {
   public_ip              = var.public_ip
   consul_servers         = var.consul_servers
   consul_clients         = var.consul_clients
-  performance_mode       = var.performance_mode
   consul_config          = var.consul_config
   owner                  = var.owner
   ttl                    = var.ttl

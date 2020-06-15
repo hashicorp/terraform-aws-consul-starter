@@ -105,7 +105,6 @@ resource "aws_launch_configuration" "consul_servers" {
       consul_cluster_version = var.consul_cluster_version,
       bootstrap              = var.bootstrap,
       enable_connect         = var.enable_connect,
-      performance_mode       = var.performance_mode,
       consul_config          = var.consul_config,
     })
   associate_public_ip_address = var.public_ip
