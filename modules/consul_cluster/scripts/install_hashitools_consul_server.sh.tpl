@@ -36,10 +36,9 @@ retry_join          = ["provider=aws tag_key=Environment-Name tag_value=${enviro
 limits {
   http_max_conns_per_client = 128
 }
-%{ if performance_mode }
 performance {
     raft_multiplier = 1
-}%{ endif }
+}
 
 acl {
   enabled        = true
