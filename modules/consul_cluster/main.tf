@@ -1,11 +1,22 @@
 # data source for current (working) aws region
 data "aws_region" "current" {}
 
-# data source for VPC id for the VPC being
+# data source for VPC id for the VPC being used
 data "aws_vpc" "consul_vpc" {
   id = var.vpc_id
 }
 
+# data source for subnet ids in VPC
+data "aws_subnet_ids" "default" {
+  vpc_id = data.aws_vpc.consul_vpc.id
+}
+
+# data source for availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+# data source for vanilla Ubuntu AWS AMI as base image for cluster
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -20,16 +31,6 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"] # Canonical
-}
-
-# data source for subnet ids in VPC
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.consul_vpc.id
-}
-
-# data source for availability zones
-data "aws_availability_zones" "available" {
-  state = "available"
 }
 
 # creates random UUID for the environment name

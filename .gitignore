@@ -5,9 +5,6 @@
 *.tfstate
 *.tfstate.*
 
-# # .tfvars files
-# *.tfvars
-
 # Packer vars
 **/vars.json
 
