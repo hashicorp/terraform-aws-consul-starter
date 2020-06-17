@@ -1,12 +1,12 @@
-# Vault AWS Module
+# Consul AWS Module
 
-This is Terraform module for provisioning a Consul Cluster on AWS. (This will
-provision five (5) Consul server nodes and three (3) Consul client nodes.)
+This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a full Consul cluster, which defaults to consisting of 5 (five) servers and 3 (three) clients.
+
+## About This Module
+
+This module implements the [Consul Reference Architecture](https://learn.hashicorp.com/consul/datacenter-deploy/reference-architecture?utm_source=consul.io&utm_medium=docs#datacenter-design) for a single datacenter on AWS.  
 
 ## How to Use This Module
-
-- Create a Vault AMI [using the provided Packer
-  template](modules/consul_cluster/packer)
 
 - Create a Terraform configuration that pulls in the module and specifies values
   of the required variables:
@@ -23,14 +23,12 @@ provider "random" {
 module "consul_cluster" {
   source = "git@github.com:hashicorp/terraform-aws-consul-espd.git"
 
-  vpc_id         = "<your VPC id"
-  ami_id         = "<the ami you created>"
+  vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
   name_prefix    = "<name prefix you would like attached to your environment>"
   key_name       = "<your SSH key>"
   consul_servers = 5
   consul_clients = 3
-  ttl            = "-1"
 }
 ```
 
@@ -52,14 +50,12 @@ provider "random" {
 module "consul_cluster" {
   source = "git@github.com:hashicorp/terraform-aws-consul-espd.git?ref=v0.0.1"
 
-  vpc_id         = "<your VPC id"
-  ami_id         = "<the ami you created>"
+  vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
   name_prefix    = "<name prefix you would like attached to your environment>"
   key_name       = "<your SSH key>"
   consul_servers = 5
   consul_clients = 3
-  ttl            = "-1"
 }
 ```
 

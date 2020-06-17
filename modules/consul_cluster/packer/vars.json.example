@@ -1,8 +1,0 @@
-{
-  "consul_zip": "consul_1.7.3_linux_amd64.zip",
-  "consul_version": "1.7.1",
-  "username": "somebody",
-  "pubkey": "ssh-rsa AAAAB3NzaC1d/e1lIXGXX7DD/zlzHcw== somebody@somebody.local",
-  "owner": "somebody@hashicorp.com",
-  "release": "0.0.1"
-}

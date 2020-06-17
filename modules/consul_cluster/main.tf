@@ -1,11 +1,22 @@
 # data source for current (working) aws region
 data "aws_region" "current" {}
 
-# data source for VPC id for the VPC being
+# data source for VPC id for the VPC being used
 data "aws_vpc" "consul_vpc" {
   id = var.vpc_id
 }
 
+# data source for subnet ids in VPC
+data "aws_subnet_ids" "default" {
+  vpc_id = data.aws_vpc.consul_vpc.id
+}
+
+# data source for availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+# data source for vanilla Ubuntu AWS AMI as base image for cluster
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -20,16 +31,6 @@ data "aws_ami" "ubuntu" {
   }
 
   owners = ["099720109477"] # Canonical
-}
-
-# data source for subnet ids in VPC
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.consul_vpc.id
-}
-
-# data source for availability zones
-data "aws_availability_zones" "available" {
-  state = "available"
 }
 
 # creates random UUID for the environment name
@@ -71,11 +72,6 @@ resource "aws_autoscaling_group" "consul_servers" {
       value               = var.owner
       propagate_at_launch = true
     },
-    {
-      key                 = "ttl"
-      value               = var.ttl
-      propagate_at_launch = true
-    },
   ]
 
   lifecycle {
@@ -85,12 +81,12 @@ resource "aws_autoscaling_group" "consul_servers" {
 
 # provides a resource for a new autoscaling group launch configuration
 resource "aws_launch_configuration" "consul_servers" {
-  name                        = "${random_id.environment_name.hex}-consul-servers-${var.consul_cluster_version}"
-  image_id                    = data.aws_ami.ubuntu.id
-  instance_type               = var.instance_type
-  key_name                    = var.key_name
-  security_groups             = [aws_security_group.consul.id]
-  user_data                   = templatefile("${path.module}/scripts/install_hashitools_consul_server.sh.tpl",
+  name            = "${random_id.environment_name.hex}-consul-servers-${var.consul_cluster_version}"
+  image_id        = data.aws_ami.ubuntu.id
+  instance_type   = var.instance_type
+  key_name        = var.key_name
+  security_groups = [aws_security_group.consul.id]
+  user_data = templatefile("${path.module}/scripts/install_hashitools_consul_server.sh.tpl",
     {
       ami                    = data.aws_ami.ubuntu.id,
       environment_name       = "${var.name_prefix}-consul",
@@ -106,7 +102,7 @@ resource "aws_launch_configuration" "consul_servers" {
       bootstrap              = var.bootstrap,
       enable_connect         = var.enable_connect,
       consul_config          = var.consul_config,
-    })
+  })
   associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
   root_block_device {
