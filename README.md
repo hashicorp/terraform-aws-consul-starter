@@ -1,7 +1,6 @@
-# Vault AWS Module
+# Consul AWS Module
 
-This is Terraform module for provisioning a Consul Cluster on AWS. (This will
-provision five (5) Consul server nodes and three (3) Consul client nodes.)
+This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a full Consul cluster consisting of 5 (five) servers and 3 (three) clients. 
 
 ## How to Use This Module
 
@@ -48,7 +47,7 @@ provider "random" {
 module "consul_cluster" {
   source = "git@github.com:hashicorp/terraform-aws-consul-espd.git?ref=v0.0.1"
 
-  vpc_id         = "<your VPC id"
+  vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
   name_prefix    = "<name prefix you would like attached to your environment>"
   key_name       = "<your SSH key>"
