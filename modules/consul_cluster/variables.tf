@@ -61,7 +61,3 @@ variable "public_ip" {
 variable "vpc_id" {
   description = "VPC ID"
 }
-
-variable "ttl" {
-  description = "value of ttl tag on EC2 instances"
-}

@@ -32,11 +32,6 @@ resource "aws_autoscaling_group" "consul_clients" {
       value               = var.owner
       propagate_at_launch = true
     },
-    {
-      key                 = "ttl"
-      value               = var.ttl
-      propagate_at_launch = true
-    },
   ]
 
   depends_on = [aws_autoscaling_group.consul_servers]

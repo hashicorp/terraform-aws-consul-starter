@@ -13,5 +13,4 @@ module "consul_cluster" {
   consul_clients         = var.consul_clients
   consul_config          = var.consul_config
   owner                  = var.owner
-  ttl                    = var.ttl
 }

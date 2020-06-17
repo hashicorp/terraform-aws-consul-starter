@@ -29,7 +29,6 @@ module "consul_cluster" {
   key_name       = "<your SSH key>"
   consul_servers = 5
   consul_clients = 3
-  ttl            = "-1"
 }
 ```
 
@@ -57,7 +56,6 @@ module "consul_cluster" {
   key_name       = "<your SSH key>"
   consul_servers = 5
   consul_clients = 3
-  ttl            = "-1"
 }
 ```
 
