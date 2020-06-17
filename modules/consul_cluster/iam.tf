@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "instance_role" {
 
 # creates IAM role policy for cluster discovery and attaches it to instance role
 resource "aws_iam_role_policy" "cluster_discovery" {
-  name   = "${random_id.environment_name.hex}-consul-cluster_discovery" # TODO: transition to var
+  name   = "${random_id.environment_name.hex}-consul-cluster_discovery"
   role   = aws_iam_role.instance_role.id
   policy = data.aws_iam_policy_document.cluster_discovery.json
 }
