@@ -12,5 +12,6 @@ module "consul_cluster" {
   consul_servers         = var.consul_servers
   consul_clients         = var.consul_clients
   consul_config          = var.consul_config
+  enable_connect         = var.enable_connect
   owner                  = var.owner
 }
