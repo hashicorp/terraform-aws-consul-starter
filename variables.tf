@@ -45,7 +45,6 @@ variable "key_name" {
 }
 
 variable "name_prefix" {
-  default     = ""
   description = "prefix used in resource names"
 }
 

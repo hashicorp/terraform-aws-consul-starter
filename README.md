@@ -1,6 +1,10 @@
 # Consul AWS Module
 
-This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a full Consul cluster consisting of 5 (five) servers and 3 (three) clients. 
+This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a full Consul cluster, which defaults to consisting of 5 (five) servers and 3 (three) clients.
+
+## About This Module
+
+This module implements the [Consul Reference Architecture](https://learn.hashicorp.com/consul/datacenter-deploy/reference-architecture?utm_source=consul.io&utm_medium=docs#datacenter-design) for a single datacenter on AWS.  
 
 ## How to Use This Module
 
