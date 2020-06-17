@@ -5,7 +5,4 @@
 *.tfstate
 *.tfstate.*
 
-# Packer vars
-**/vars.json
-
 .DS_Store
