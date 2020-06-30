@@ -23,13 +23,13 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "TODO: https link"
+  source = "https://github.com/hashicorp/terraform-aws-consul-oss.git"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
   consul_version = "<version of Consul>"
   name_prefix    = "<name prefix you would like attached to your environment>"
-  key_name       = "<your SSH key>"
+  key_name       = "<your SSH key name>"
   consul_servers = 5
   consul_clients = 3
 }
@@ -51,16 +51,20 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "todo: HTTPS link>"
+  source = "https://github.com/hashicorp/terraform-aws-consul-oss.git?ref=v0.1.0"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
   consul_version = "<version of Consul>"
   name_prefix    = "<name prefix you would like attached to your environment>"
-  key_name       = "<your SSH key>"
+  key_name       = "<your SSH key name>"
   consul_servers = 5
   consul_clients = 3
 }
 ```
 
 - Run `terraform init` and `terraform apply`
+
+## License
+
+This code is released under the Mozilla Public License 2.0. Please see [LICENSE](https://github.com/hashicorp/terraform-aws-consul-espd/blob/cotarg/add-mpl-20/LICENSE) for more details.
