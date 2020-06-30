@@ -23,7 +23,7 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "https://github.com/hashicorp/terraform-aws-consul-oss.git"
+  source = "github.com/hashicorp/terraform-aws-consul-oss.git"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
@@ -51,7 +51,7 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "https://github.com/hashicorp/terraform-aws-consul-oss.git?ref=v0.1.0"
+  source = "github.com/hashicorp/terraform-aws-consul-oss.git?ref=v0.1.0"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
