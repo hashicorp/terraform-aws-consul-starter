@@ -1,10 +1,12 @@
 # Consul AWS Module
 
-This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a full Consul cluster, which defaults to consisting of 5 (five) servers and 3 (three) clients.
+This is a Terraform module for provisioning a Consul Cluster on AWS. Consul is a distributed, highly-available service mesh solution providing a full featured control plane with service discovery, configuration, and segmentation functionality. This module will provision a fully functional Consul cluster, which defaults to consisting of 5 (five) servers and 3 (three) clients.
 
 ## About This Module
 
-This module implements the [Consul Reference Architecture](https://learn.hashicorp.com/consul/datacenter-deploy/reference-architecture?utm_source=consul.io&utm_medium=docs#datacenter-design) for a single datacenter on AWS.  
+This module implements the [Consul Reference Architecture](https://learn.hashicorp.com/consul/datacenter-deploy/reference-architecture?utm_source=consul.io&utm_medium=docs#datacenter-design) for a single datacenter on AWS using the Open Source version of Consul. It is created and maintained by HashiCorp to exist as a canonical implementation of a Consul cluster in the Amazon Web Services cloud, and enforces this prescriptive methodology through the use of default values corresponding to the recommendations of our Enterprise Architects.
+
+For more advanced practitioners requiring a wider variety of configurable options out of the box, please see the [Terraform AWS Consul Module](https://registry.terraform.io/modules/hashicorp/consul/aws/0.7.4).
 
 ## How to Use This Module
 
@@ -21,10 +23,11 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "git@github.com:hashicorp/terraform-aws-consul-espd.git"
+  source = "TODO: https link"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
+  consul_version = "<version of Consul>"
   name_prefix    = "<name prefix you would like attached to your environment>"
   key_name       = "<your SSH key>"
   consul_servers = 5
@@ -48,10 +51,11 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "git@github.com:hashicorp/terraform-aws-consul-espd.git?ref=v0.0.1"
+  source = "todo: HTTPS link>"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
+  consul_version = "<version of Consul>"
   name_prefix    = "<name prefix you would like attached to your environment>"
   key_name       = "<your SSH key>"
   consul_servers = 5
