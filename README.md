@@ -67,4 +67,4 @@ module "consul_cluster" {
 
 ## License
 
-This code is released under the Mozilla Public License 2.0. Please see [LICENSE](https://github.com/hashicorp/terraform-aws-consul-espd/blob/cotarg/add-mpl-20/LICENSE) for more details.
+This code is released under the Mozilla Public License 2.0. Please see [LICENSE](https://github.com/hashicorp/terraform-aws-consul-oss/blob/master/LICENSE) for more details.
