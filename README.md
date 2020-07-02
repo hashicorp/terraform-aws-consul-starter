@@ -23,7 +23,8 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source = "github.com/hashicorp/terraform-aws-consul-oss.git"
+  source         = "hashicorp/consul-oss/aws"
+  version        = "0.1.0"
 
   vpc_id         = "<your VPC id>"
   owner          = "<owner name/tag>"
@@ -36,32 +37,6 @@ module "consul_cluster" {
 ```
 
 Note: Currently the random provider is required for this module's functionality.
-
-- If you want to use a certain release of the module, specify the `ref` tag in
-  your source option as shown below:
-
-```hcl
-
-provider "aws" {
-  region = "<your AWS region>"
-}
-
-provider "random" {
-  version = "~> 2.2"
-}
-
-module "consul_cluster" {
-  source = "github.com/hashicorp/terraform-aws-consul-oss.git?ref=v0.1.0"
-
-  vpc_id         = "<your VPC id>"
-  owner          = "<owner name/tag>"
-  consul_version = "<version of Consul>"
-  name_prefix    = "<name prefix you would like attached to your environment>"
-  key_name       = "<your SSH key name>"
-  consul_servers = 5
-  consul_clients = 3
-}
-```
 
 - Run `terraform init` and `terraform apply`
 
