@@ -23,16 +23,16 @@ provider "random" {
 }
 
 module "consul_cluster" {
-  source         = "hashicorp/consul-oss/aws"
-  version        = "0.1.0"
-
-  vpc_id         = "<your VPC id>"
-  owner          = "<owner name/tag>"
-  consul_version = "<version of Consul>"
-  name_prefix    = "<name prefix you would like attached to your environment>"
-  key_name       = "<your SSH key name>"
-  consul_servers = 5
-  consul_clients = 3
+  source                = "hashicorp/consul-oss/aws"
+  version               = "0.1.0"
+  allowed_inbound_cidrs = ["<list of inbound CIDRs>"]
+  vpc_id                = "<your VPC id>"
+  owner                 = "<owner name/tag>"
+  consul_version        = "<version of Consul>"
+  name_prefix           = "<name prefix you would like attached to your environment>"
+  key_name              = "<your SSH key name>"
+  consul_servers        = 5
+  consul_clients        = 3
 }
 ```
 
