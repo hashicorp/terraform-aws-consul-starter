@@ -1,6 +1,7 @@
 module "consul_cluster" {
   source = "./modules/consul_cluster"
 
+  allowed_inbound_cidrs  = var.allowed_inbound_cidrs
   instance_type          = var.instance_type
   consul_version         = var.consul_version
   consul_cluster_version = var.consul_cluster_version
