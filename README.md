@@ -36,7 +36,9 @@ module "consul_cluster" {
 }
 ```
 
-Note: Currently the random provider is required for this module's functionality.
+Notes: 
+1. Currently the random provider is required for this module's functionality.
+2. `allowed_inbound_cidrs` must be supplied for this module's functionality; these CIDRs will be allowed for SSH and UI access.
 
 - Run `terraform init` and `terraform apply`
 
