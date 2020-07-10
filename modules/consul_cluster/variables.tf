@@ -1,12 +1,12 @@
+variable "acl_bootstrap_bool" {
+  type        = bool
+  default     = true
+  description = "Initial ACL Bootstrap configurations"
+}
+
 variable "allowed_inbound_cidrs" {
   type        = list(string)
   description = "List of CIDR blocks to permit inbound Consul access from"
-}
-
-variable "bootstrap" {
-  type        = bool
-  default     = true
-  description = "Initial Bootstrap configurations"
 }
 
 variable "consul_clients" {

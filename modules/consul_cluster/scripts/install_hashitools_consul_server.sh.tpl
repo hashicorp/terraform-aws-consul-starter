@@ -81,12 +81,12 @@ EOF
 
 
 %{ if acl_bootstrap_bool }
-cat << EOF > /tmp/acl_bootstrap_bool_tokens.sh
+cat << EOF > /tmp/bootstrap_tokens.sh
 #!/bin/bash
 export CONSUL_HTTP_TOKEN=${master_token}
 echo "Creating Consul ACL policies......"
-if ! consul kv get acl_acl_bootstrap_bool 2>/dev/null; then
-  consul kv put  acl_acl_bootstrap_bool 1
+if ! consul kv get acl_bootstrap 2>/dev/null; then
+  consul kv put  acl_bootstrap 1
 
   echo '
   node_prefix "" {
@@ -136,11 +136,11 @@ if ! consul kv get acl_acl_bootstrap_bool 2>/dev/null; then
   # consul acl token create -description "consul snapshot agent" -policy-name snapshot_agent -secret "${snapshot_token}" 1>/dev/null
   consul acl token update -id anonymous -policy-name anonymous 1>/dev/null
 else
-  echo "acl_bootstrap_bool already completed"
+  echo "Bootstrap already completed"
 fi
 EOF
 
-chmod 700 /tmp/acl_bootstrap_bool_tokens.sh
+chmod 700 /tmp/bootstrap_tokens.sh
 
 %{ endif }
 
@@ -197,5 +197,5 @@ until [[ $LEADER -eq 1 ]]; do
     sleep 2
 done
 
-%{ if acl_bootstrap_bool }/tmp/acl_bootstrap_bool_tokens.sh%{ endif }
+%{ if acl_bootstrap_bool }/tmp/bootstrap_tokens.sh%{ endif }
 echo "$INSTANCE_ID determined all nodes to be healthy and ready to go <3"

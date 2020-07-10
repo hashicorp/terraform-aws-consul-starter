@@ -99,7 +99,7 @@ resource "aws_launch_configuration" "consul_servers" {
       agent_server_token     = random_uuid.consul_agent_server_token.result,
       snapshot_token         = random_uuid.consul_snapshot_token.result,
       consul_cluster_version = var.consul_cluster_version,
-      bootstrap              = var.bootstrap,
+      acl_bootstrap_bool     = var.acl_bootstrap_bool,
       enable_connect         = var.enable_connect,
       consul_config          = var.consul_config,
   })
