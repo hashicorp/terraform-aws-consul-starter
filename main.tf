@@ -5,7 +5,7 @@ module "consul_cluster" {
   instance_type          = var.instance_type
   consul_version         = var.consul_version
   consul_cluster_version = var.consul_cluster_version
-  bootstrap              = var.bootstrap
+  acl_bootstrap_bool     = var.acl_bootstrap_bool
   key_name               = var.key_name
   name_prefix            = var.name_prefix
   vpc_id                 = var.vpc_id

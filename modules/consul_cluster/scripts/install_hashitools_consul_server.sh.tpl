@@ -42,10 +42,10 @@ performance {
 
 acl {
   enabled        = true
-  %{ if bootstrap }default_policy = "allow"%{ else }default_policy = "deny"%{ endif }
+  %{ if acl_bootstrap_bool }default_policy = "allow"%{ else }default_policy = "deny"%{ endif }
   enable_token_persistence = true
   tokens {
-    master = "${master_token}"%{ if !bootstrap }
+    master = "${master_token}"%{ if !acl_bootstrap_bool }
     agent  = "${agent_server_token}"%{ endif }
   }
 }
@@ -80,7 +80,7 @@ EOF
 %{ endif }
 
 
-%{ if bootstrap }
+%{ if acl_bootstrap_bool }
 cat << EOF > /tmp/bootstrap_tokens.sh
 #!/bin/bash
 export CONSUL_HTTP_TOKEN=${master_token}
@@ -197,5 +197,5 @@ until [[ $LEADER -eq 1 ]]; do
     sleep 2
 done
 
-%{ if bootstrap }/tmp/bootstrap_tokens.sh%{ endif }
+%{ if acl_bootstrap_bool }/tmp/bootstrap_tokens.sh%{ endif }
 echo "$INSTANCE_ID determined all nodes to be healthy and ready to go <3"
