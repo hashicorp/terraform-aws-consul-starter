@@ -94,6 +94,16 @@ resource "aws_security_group_rule" "consul_api_tcp" {
   source_security_group_id = aws_security_group.consul.id
 }
 
+// This rule exposes the Consul API for traffic from the same CIDR block as approved SSH.
+resource "aws_security_group_rule" "consul_ui_ingress" {
+  security_group_id = aws_security_group.consul.id
+  type              = "ingress"
+  from_port         = 8500
+  to_port           = 8500
+  protocol          = "tcp"
+  cidr_blocks       = var.allowed_inbound_cidrs
+}
+
 // This rule allows Consul DNS.
 resource "aws_security_group_rule" "consul_dns_tcp" {
   security_group_id        = aws_security_group.consul.id

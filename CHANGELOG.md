@@ -1,3 +1,11 @@
+## 0.1.3 (July 10, 2020)
+
+IMPROVEMENTS:
+
+* security: added security group rule to expose UI to allowed CIDR blocks
+* documentation: explained new `allowed_inbound_cidrs`
+* variables: renamed var to `acl_bootstrap_bool` to clarify purpose of variable
+
 ## 0.1.2 (July 08, 2020)
 
 IMPROVEMENTS:
