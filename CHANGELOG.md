@@ -1,3 +1,9 @@
+## 0.1.4 (July 22, 2020)
+
+IMPROVEMENTS:
+
+* installation: updated package epoch for regenerated repository
+
 ## 0.1.3 (July 10, 2020)
 
 IMPROVEMENTS:
