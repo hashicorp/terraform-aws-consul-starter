@@ -82,7 +82,7 @@ resource "aws_autoscaling_group" "consul_servers" {
 # provides a resource for a new autoscaling group launch configuration
 resource "aws_launch_configuration" "consul_servers" {
   name            = "${random_id.environment_name.hex}-consul-servers-${var.consul_cluster_version}"
-  image_id        = data.aws_ami.ubuntu.id
+  image_id        = var.ami_id == "" ? data.aws_ami.ubuntu.id : var.ami_id
   instance_type   = var.instance_type
   key_name        = var.key_name
   security_groups = [aws_security_group.consul.id]

@@ -79,3 +79,9 @@ variable "public_ip" {
   default     = false
   description = "should ec2 instance have public ip?"
 }
+
+variable "ami_id" {
+  type = string
+  default = ""
+  description = "EC2 instance AMI ID to override the default Ubuntu AMI"
+}
