@@ -15,11 +15,17 @@ jobs:
               echo "There are terraform files to format. Run `terraform fmt --recursive` to fix"
               exit 1
             fi
-      - run: |
-          find . -type f -name "*.tf" -exec dirname {} \; | sort -u |
-          while read dir; do
-            terraform validate && echo "√ $dir" || exit 1
-          done
+      - run:
+          name: terraform validate
+          environment:
+            # `terraform validate` complains if there isn't a value specified
+            # ref: https://github.com/terraform-providers/terraform-provider-aws/issues/9989
+            AWS_DEFAULT_REGION: us-east-1
+          command: |
+            find . -type f -name "*.tf" -exec dirname {} \; | sort -u |
+            while read dir; do
+              terraform validate && echo "√ $dir" || exit 1
+            done
 workflows:
   version: 2
   terraform:
