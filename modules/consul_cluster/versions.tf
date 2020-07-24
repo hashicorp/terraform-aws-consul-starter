@@ -1,4 +1,4 @@
-# names required TF version
+# required TF version
 terraform {
   required_version = ">= 0.12"
 }

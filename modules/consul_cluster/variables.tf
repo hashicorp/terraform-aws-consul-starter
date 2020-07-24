@@ -5,23 +5,23 @@ variable "allowed_inbound_cidrs" {
 }
 
 variable "consul_version" {
-  type = string
+  type        = string
   description = "Consul version to install"
 }
 
 variable "name_prefix" {
-  type = string
+  type        = string
   description = "prefix used in resource names"
 }
 
 variable "owner" {
-  type = string
+  type        = string
   description = "value of owner tag on EC2 instances"
 }
 
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "VPC ID"
 }
 
@@ -33,25 +33,25 @@ variable "acl_bootstrap_bool" {
 }
 
 variable "consul_clients" {
-  type = number
+  type        = number
   default     = "3"
   description = "number of Consul instances"
 }
 
 variable "consul_config" {
-  type = map(string)
+  type        = map(string)
   default     = {}
   description = "HCL Object with additional configuration overrides supplied to the consul servers.  This is converted to JSON before rendering via the template."
 }
 
 variable "consul_cluster_version" {
-  type = string
+  type        = string
   default     = "0.0.1"
   description = "Custom Version Tag for Upgrade Migrations"
 }
 
 variable "consul_servers" {
-  type = number
+  type        = number
   default     = "5"
   description = "number of Consul instances"
 }
@@ -63,13 +63,13 @@ variable "enable_connect" {
 }
 
 variable "instance_type" {
-  type = string
+  type        = string
   default     = "m5.large"
   description = "Instance type for Consul instances"
 }
 
 variable "key_name" {
-  type = string
+  type        = string
   default     = "default"
   description = "SSH key name for Consul instances"
 }
@@ -81,7 +81,7 @@ variable "public_ip" {
 }
 
 variable "ami_id" {
-  type = string
-  default = ""
+  type        = string
+  default     = ""
   description = "EC2 instance AMI ID to override the default Ubuntu AMI"
 }
