@@ -1,3 +1,9 @@
+## 0.1.5 (July 24, 2020)
+
+IMPROVEMENTS:
+
+* installation: added `ami_id` variable to override supplied default Ubuntu AMI if desired
+
 ## 0.1.4 (July 22, 2020)
 
 IMPROVEMENTS:
