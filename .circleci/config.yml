@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  terraform-checks:
+    docker:
+      - image: hashicorp/terraform:latest
+    steps:
+      - checkout
+      - run: terraform version
+      - run: terraform init -input=false -backend=false
+      - run:
+          name: terraform fmt
+          command: |
+            if ! (terraform fmt -check -recursive -write=false); then
+              echo "There are terraform files to format. Run `terraform fmt --recursive` to fix"
+              exit 1
+            fi
+      - run:
+          name: terraform validate
+          environment:
+            # `terraform validate` complains if there isn't a value specified
+            # ref: https://github.com/terraform-providers/terraform-provider-aws/issues/9989
+            AWS_DEFAULT_REGION: us-east-1
+          command: |
+            find . -type f -name "*.tf" -exec dirname {} \; | sort -u |
+            while read dir; do
+              terraform validate && echo "√ $dir" || exit 1
+            done
+workflows:
+  version: 2
+  terraform:
+    jobs:
+      - terraform-checks
