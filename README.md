@@ -18,10 +18,6 @@ provider "aws" {
   region = "<your AWS region>"
 }
 
-provider "random" {
-  version = "~> 2.2"
-}
-
 module "consul_cluster" {
   source                = "hashicorp/consul-oss/aws"
   version               = "0.1.0"
