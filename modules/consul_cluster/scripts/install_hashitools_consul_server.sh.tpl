@@ -19,14 +19,19 @@ INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
 AVAILABILITY_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
 LOCAL_IPV4=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
+echo "Create folder structure for Consul"
+mkdir -p ${var.log_path}/{data,log}
+chown -R consul:consul ${var.log_path}/
+chmod -R 640 ${var.log_path}/
+
+echo "Creat configuration for Consul"
 cat << EOF > /etc/consul.d/consul.hcl
 datacenter          = "${datacenter}"
 server              = true
 bootstrap_expect    = ${bootstrap_expect}
-data_dir            = "/opt/consul/data"
+data_dir            = "${var.log_path}/data"
 advertise_addr      = "$${LOCAL_IPV4}"
 client_addr         = "0.0.0.0"
-log_level           = "INFO"
 ui                  = true
 
 # AWS cloud join
@@ -51,6 +56,30 @@ acl {
 }
 
 encrypt = "${gossip_key}"
+EOF
+
+cat << EOF > /etc/consul.d/logging.hcl
+log_level            = "INFO"
+%{ if syslog }
+enable_syslog        = true
+%{ else }
+enable_syslog        = false
+%{ endif }
+%{ if log_path }
+log_file             = "${var.log_path}/"
+%{ else }
+log_file             = "${var.log_path}/logs/"
+%{ endif }
+%{ if time_based_rotation }
+log_rotate_duration  = "24h"
+log_rotate_max_files = 32
+%{ elif sized_log_rotation }
+log_rotate_bytes     = "250MB"
+log_rotate_max_files = 100
+%{ else }
+log_rotate_bytes     = "250MB"
+log_rotate_max_files = 100
+%{ endif }
 EOF
 
 cat << EOF > /etc/consul.d/autopilot.hcl

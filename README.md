@@ -29,12 +29,17 @@ module "consul_cluster" {
   key_name              = "<your SSH key name>"
   consul_servers        = 5
   consul_clients        = 3
+  log_path              = "/opt/consul"
+  sized_log_rotation    = false
+  timed_log_rotation    = false
 }
 ```
 
-Notes: 
+Notes:
+
 1. Currently the random provider is required for this module's functionality.
 2. `allowed_inbound_cidrs` must be supplied for this module's functionality; these CIDRs will be allowed for SSH and UI access.
+3. Logging settings are configured in `modules/consul_cluster/scripts`
 
 - Run `terraform init` and `terraform apply`
 

@@ -53,6 +53,30 @@ variable "name_prefix" {
   description = "prefix used in resource names"
 }
 
+variable "log_path" {
+  type        = string
+  default     = "/opt/consul"
+  description = "Path for Consul data and logging. No trailing slash."
+}
+
+variable "syslog" {
+  type        = bool
+  default     = false
+  description = "Write logging to Syslog rather than log_path"
+}
+
+variable "timed_log_rotation" {
+  type        = bool
+  default     = false
+  description = "Creates a new log file every 24hours, for 32 days"
+}
+
+variable "sized_log_rotation" {
+  type        = bool
+  default     = false
+  description = "Creates a new log file every 250MB, for 100 logs"
+}
+
 variable "owner" {
   description = "value of owner tag on EC2 instances"
 }
