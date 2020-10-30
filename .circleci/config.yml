@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   terraform-checks:
     docker:
-      - image: hashicorp/terraform:latest
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:latest
     steps:
       - checkout
       - run: terraform version
