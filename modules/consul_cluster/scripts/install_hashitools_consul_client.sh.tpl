@@ -16,15 +16,15 @@ AVAILABILITY_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/ava
 LOCAL_IPV4=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
 echo "Create folder structure for Consul"
-mkdir -p ${var.log_path}/{data,log}
-chown -R consul:consul ${var.log_path}/
-chmod -R 640 ${var.log_path}/
+mkdir -p ${consul_path}/{data,log}
+chown -R consul:consul ${consul_path}/
+chmod -R 640 ${consul_path}/
 
 echo "Creat configuration for Consul"
 cat << EOF > /etc/consul.d/consul.hcl
 datacenter          = "${datacenter}"
 server              = false
-data_dir            = "${var.log_path}/data"
+data_dir            = "${consul_path}/data/"
 advertise_addr      = "$${LOCAL_IPV4}"
 client_addr         = "0.0.0.0"
 ui                  = true
@@ -36,21 +36,15 @@ EOF
 
 cat << EOF > /etc/consul.d/logging.hcl
 log_level            = "INFO"
-%{ if syslog }
-enable_syslog        = true
-%{ else }
-enable_syslog        = false
-%{ endif }
-log_file             = "${var.log_path}/logs"
+log_file             = "${consul_path}/log/"
+enable_syslog        = ${syslog}
+log_rotate_max_files = "${log_rotate_max_files}"
+
 %{ if time_based_rotation }
-log_rotate_duration  = "24h"
-log_rotate_max_files = 32
-%{ elif sized_log_rotation }
-log_rotate_bytes     = "250MB"
-log_rotate_max_files = 100
-%{ else }
-log_rotate_bytes     = "250MB"
-log_rotate_max_files = 100
+log_rotate_duration  = "${log_rotate_duration}"
+%{ endif }
+%{ if sized_log_rotation }
+log_rotate_bytes     = "${log_rotate_bytes}"
 %{ endif }
 EOF
 

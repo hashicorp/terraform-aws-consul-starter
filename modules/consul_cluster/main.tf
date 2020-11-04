@@ -102,6 +102,13 @@ resource "aws_launch_configuration" "consul_servers" {
       acl_bootstrap_bool     = var.acl_bootstrap_bool,
       enable_connect         = var.enable_connect,
       consul_config          = var.consul_config,
+      consul_path            = var.consul_path,
+      syslog                 = var.syslog,
+      log_rotate_bytes       = var.log_rotate_bytes
+      log_rotate_duration    = var.log_rotate_duration
+      log_rotate_max_files   = var.log_rotate_max_files
+      sized_log_rotation     = var.sized_log_rotation
+      timed_log_rotation     = var.timed_log_rotation
   })
   associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name

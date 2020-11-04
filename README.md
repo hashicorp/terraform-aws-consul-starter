@@ -22,16 +22,22 @@ module "consul_cluster" {
   source                = "hashicorp/consul-oss/aws"
   version               = "0.1.0"
   allowed_inbound_cidrs = ["<list of inbound CIDRs>"]
-  vpc_id                = "<your VPC id>"
-  owner                 = "<owner name/tag>"
-  consul_version        = "<version of Consul>"
-  name_prefix           = "<name prefix you would like attached to your environment>"
-  key_name              = "<your SSH key name>"
   consul_servers        = 5
   consul_clients        = 3
-  log_path              = "/opt/consul"
-  sized_log_rotation    = false
+  consul_version        = "<version of Consul>"
+  key_name              = "<your SSH key name>"
+  name_prefix           = "<name prefix you would like attached to your environment>"
+  vpc_id                = "<your VPC id>"
+  owner                 = "<owner name/tag>"
+
+// The following are optional parameters that have defaults provided.
+  consul_path           = "/opt/consul"
+  syslog                = false
   timed_log_rotation    = false
+  sized_log_rotation    = true
+  log_rotate_bytes      = "250M"
+  log_rotate_duration   = "24H"
+  log_rotate_max_files  = "100"
 }
 ```
 
