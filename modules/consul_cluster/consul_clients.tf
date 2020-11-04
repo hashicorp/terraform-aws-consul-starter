@@ -50,18 +50,18 @@ resource "aws_launch_configuration" "consul_clients" {
   security_groups = [aws_security_group.consul.id]
   user_data = templatefile("${path.module}/scripts/install_hashitools_consul_client.sh.tpl",
     {
-      ami                    = data.aws_ami.ubuntu.id,
-      environment_name       = "${var.name_prefix}-consul",
-      consul_version         = var.consul_version,
-      datacenter             = data.aws_region.current.name,
-      gossip_key             = random_id.consul_gossip_encryption_key.b64_std,
-      consul_path            = var.consul_path,
-      syslog                 = var.syslog,
-      log_rotate_bytes       = var.log_rotate_bytes
-      log_rotate_duration    = var.log_rotate_duration
-      log_rotate_max_files   = var.log_rotate_max_files
-      sized_log_rotation     = var.sized_log_rotation
-      timed_log_rotation     = var.timed_log_rotation
+      ami                  = data.aws_ami.ubuntu.id,
+      environment_name     = "${var.name_prefix}-consul",
+      consul_version       = var.consul_version,
+      datacenter           = data.aws_region.current.name,
+      gossip_key           = random_id.consul_gossip_encryption_key.b64_std,
+      consul_path          = var.consul_path,
+      syslog               = var.syslog,
+      log_rotate_bytes     = var.log_rotate_bytes
+      log_rotate_duration  = var.log_rotate_duration
+      log_rotate_max_files = var.log_rotate_max_files
+      sized_log_rotation   = var.sized_log_rotation
+      timed_log_rotation   = var.timed_log_rotation
   })
   associate_public_ip_address = var.public_ip
   iam_instance_profile        = aws_iam_instance_profile.instance_profile.name
