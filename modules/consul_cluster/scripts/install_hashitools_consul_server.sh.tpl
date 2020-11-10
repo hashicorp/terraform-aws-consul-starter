@@ -16,17 +16,22 @@ timedatectl set-timezone UTC
 
 echo "Starting deployment from AMI: ${ami}"
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
-AVAILABILITY_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+AVAILABILITY_ZONE=$(curl -silent http://169.254.169.254/latest/meta-data/placement/availability-zone)
 LOCAL_IPV4=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
+echo "Create folder structure for Consul"
+mkdir -p ${consul_path}/{data,log}
+chown -R consul:consul ${consul_path}/
+chmod -R 640 ${consul_path}/
+
+echo "Creat configuration for Consul"
 cat << EOF > /etc/consul.d/consul.hcl
 datacenter          = "${datacenter}"
 server              = true
 bootstrap_expect    = ${bootstrap_expect}
-data_dir            = "/opt/consul/data"
+data_dir            = "${consul_path}/data/"
 advertise_addr      = "$${LOCAL_IPV4}"
 client_addr         = "0.0.0.0"
-log_level           = "INFO"
 ui                  = true
 
 # AWS cloud join
@@ -51,6 +56,20 @@ acl {
 }
 
 encrypt = "${gossip_key}"
+EOF
+
+cat << EOF > /etc/consul.d/logging.hcl
+log_level            = "INFO"
+log_file             = "${consul_path}/log/"
+enable_syslog        = ${syslog}
+log_rotate_max_files = "${log_rotate_max_files}"
+
+%{ if time_based_rotation }
+log_rotate_duration  = "${log_rotate_duration}"
+%{ endif }
+%{ if sized_log_rotation }
+log_rotate_bytes     = "${log_rotate_bytes}"
+%{ endif }
 EOF
 
 cat << EOF > /etc/consul.d/autopilot.hcl

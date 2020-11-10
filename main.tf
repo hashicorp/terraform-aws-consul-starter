@@ -15,4 +15,7 @@ module "consul_cluster" {
   consul_config          = var.consul_config
   enable_connect         = var.enable_connect
   owner                  = var.owner
+  log_path               = var.log_path
+  sized_log_rotation     = var.sized_log_rotation
+  timed_log_rotation     = var.timed_log_rotation
 }
