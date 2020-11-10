@@ -80,17 +80,17 @@ variable "log_rotate_duration" {
 variable "log_rotate_max_files" {
   type        = string
   default     = "100"
-  description = "100 Log files recommended for time based rotation. 32 recommended for date based rotation."
+  description = "100 Log files recommended for time-based rotation. 32 recommended for date-based rotation."
 }
 
 variable "owner" {
-  description = "value of owner tag on EC2 instances"
+  description = "Value of owner tag on EC2 instances"
 }
 
 variable "public_ip" {
   type        = bool
   default     = false
-  description = "should ec2 instance have public ip?"
+  description = "Should EC2 instance have public IP?"
 }
 
 variable "sized_log_rotation" {

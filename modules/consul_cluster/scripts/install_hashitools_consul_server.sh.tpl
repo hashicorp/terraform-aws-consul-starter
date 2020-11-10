@@ -16,7 +16,7 @@ timedatectl set-timezone UTC
 
 echo "Starting deployment from AMI: ${ami}"
 INSTANCE_ID=`curl -s http://169.254.169.254/latest/meta-data/instance-id`
-AVAILABILITY_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+AVAILABILITY_ZONE=$(curl -silent http://169.254.169.254/latest/meta-data/placement/availability-zone)
 LOCAL_IPV4=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
 echo "Create folder structure for Consul"
